@@ -1,6 +1,6 @@
   
 #Dependencies and Setup
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, url_for
 from flask_pymongo import PyMongo
 import scrape_mars
 
