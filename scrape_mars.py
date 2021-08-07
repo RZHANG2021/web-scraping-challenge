@@ -8,25 +8,26 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # # Scrape website to get NASA Mars News science
 
+
 def scrape_all():
     # Setup splinter and initialize Chrome broswer
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
 
     Title,Article = mars_news(browser)
-    featured_image_url = featured_image(browser)
-    facts = mars_facts()
-    hemisphere_image_urls = hemispheres(broswer)
+    # featured_image_url = featured_image(browser)
+    # facts = mars_facts(browser)
+    # hemisphere_image_urls = hemispheres(broswer)
 
-    #run all scraping functions and store results in a dictionary
+    # run all scraping functions and store results in a dictionary
     web_content={
         "news_title": Title,
         "news_paragraph": Article,
         "featured_image": featured_image(browser),
-        "facts": mars_facts(),
-        "hemispheres": hemispheres(broswer)
+        "facts": mars_facts(browser),
+        "hemispheres": hemispheres(browser)
     }
-
+    
     # stop webdriver and return data
     browser.quit()
 
@@ -73,7 +74,7 @@ def featured_image(browser):
 
 # # Scrape Mars Facts
 
-def mars_facts():
+def mars_facts(browser):
 
     #connet to Mars Facts
     facts_url = "https://galaxyfacts-mars.com/"
@@ -91,6 +92,8 @@ def mars_facts():
 
 def hemispheres(broswer):
 
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path, headless=False)
 
     #URL of page to be scraped
     marshemispheres_url="https://marshemispheres.com/index.html"
@@ -129,7 +132,7 @@ def hemispheres(broswer):
             hemispheres = {"title": title,"img_url": image_urls}        
 
             # append individual hemispheres into a list
-            hemisphere_image_urls.append(hemispheres )
+            hemisphere_image_urls.append(hemispheres)
 
 
             #click back to the initial website
@@ -137,8 +140,6 @@ def hemispheres(broswer):
 
         except:
             print("item is not found")
-
-
 
     return hemisphere_image_urls
 
